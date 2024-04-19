@@ -6,10 +6,11 @@
   <title>Certificate Generator</title>
   <style>
     body {
-      font-family: 'Harry Potter', Libre Baskerville, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+}
+
 
     .container {
       max-width: 3000px;
@@ -48,7 +49,7 @@
 
     .certificate-text {
       position: absolute;
-      top: 46%;
+      top: 48%;
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 20px;
@@ -70,10 +71,10 @@
 
     .certificate-bottom {
       position: absolute;
-      bottom: 550px;
+      bottom: 600px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 30px;
+      font-size: 40px;
       color: black;
       text-align: center;
       width: 80%;
@@ -91,11 +92,8 @@
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Generate Certificate</h1>
-    <button onclick="generateCertificate()">Generate Certificate</button>
-    <button id="downloadBtn" class="download-btn" style="display: none;" onclick="downloadCertificate()">Download as JPG</button>
+<body onload="generateCertificate(); setTimeout(downloadCertificate, 1000)">
+<div class="container">
     <div id="certificate"></div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
@@ -135,23 +133,29 @@
     }
 
     function downloadCertificate() {
-      
-      const certificate = document.getElementById('certificate');
+  const certificate = document.getElementById('certificate');
+  
+    // Convert certificate to image
+    domtoimage.toJpeg(certificate, { quality: 1.0 })
+      .then(function (dataUrl) {
+        // Create a link element
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'certificate.jpg';
+        // Trigger the click event
+        link.click();
+      })
+      .catch(function (error) {
+        console.error('Error generating certificate:', error);
+      });
 
-      // Convert certificate to image
-      domtoimage.toJpeg(certificate, { quality: 1.0 })
-        .then(function (dataUrl) {
-          // Create a link element
-          const link = document.createElement('a');
-          link.href = dataUrl;
-          link.download = 'certificate.jpg';
-          // Trigger the click event
-          link.click();
-        })
-        .catch(function (error) {
-          console.error('Error generating certificate:', error);
-        });
-    }
+setTimeout(function() {
+
+    // Close the window after download starts
+    window.close();
+  }, 5000); // Delay of 1 second before downloading
+}
+
 
 
   </script>
