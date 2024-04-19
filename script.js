@@ -880,10 +880,20 @@ function showWinDialog(name, instagramId, timeTaken) {
     if (percentage >= 80) {
         message = `Congratulations, ${name}!`;
         certification = `You are a true Potterhead and have earned the Certified Potterhead certification!`;
+
+// Show the download certificate button
+        document.getElementById('downloadCertBtn').style.display = 'block';
     } else {
         message = `Nice try, ${name}.`;
         certification = `You are not qualified to become a certified Potterhead this time. Better luck next time!`;
+
+// Hide the download certificate button
+        document.getElementById('downloadCertBtn').style.display = 'none';
     }
+
+// Hide the score banner
+    document.getElementById('scoreBanner').style.display = 'none';
+   
 
     const products = [
         {
@@ -933,12 +943,15 @@ function showWinDialog(name, instagramId, timeTaken) {
     winDialog.style.display = 'block';
 }
 
-        document.getElementById("downloadCertBtn").addEventListener('click', () => {
+
+
+     document.getElementById("downloadCertBtn").addEventListener('click', () => {
             const name = encodeURIComponent(document.getElementById('nameInput').value);
             percentage = encodeURIComponent(percentage)
-            window.open(`test.html?name=${name}&percentage=${percentage}`, "_blank")
-            // window.location.href = "test.html";
+            window.open(`certificate.html?name=${name}&percentage=${percentage}`, "_blank")
+            // window.location.href = "certificate.html";
         })
+
 
         retakeQuizBtn.addEventListener('click', () => {
             currentQuestion = 0;
@@ -980,3 +993,4 @@ function showWinDialog(name, instagramId, timeTaken) {
         }
 
         setInterval(updateScoreBanner, 100);
+
