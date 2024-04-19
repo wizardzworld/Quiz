@@ -39,13 +39,13 @@
         #nextQuestionBtn,
         .dialogBtn,
         .product-btn {
-            margin-bottom: 20px;
-            padding: 15px 40px;
+            margin-bottom: 10px;
+            padding: 5px 20px;
             border: none;
             border-radius: 10px;
             background-color: #794726;
             color: #f2e8df;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -142,7 +142,7 @@
             #nextQuestionBtn,
             .dialogBtn,
             .product-btn {
-                font-size: 1.5rem;
+                font-size: 1rem;
             }
 
             .quizQuestion {
@@ -426,7 +426,12 @@
 #certificate-bottom {
 font-family: 'YourCustomFont', Arial, sans-serif; /* Use the custom font, fallback to Arial or sans-serif if the custom font is not available */
 }
-
+.dialogBtn {
+    margin: 10px auto; /* Center the buttons horizontally and add some margin */
+    display: block; /* Make the buttons a block element to occupy full width */
+    padding: 8px 16px; /* Adjust padding to make the buttons smaller */
+    font-size: 0.9rem; /* Reduce the font size of the button text */
+}
 
 
 
