@@ -825,7 +825,10 @@ const questions = [
                 optionDiv.textContent = option;
                 optionDiv.addEventListener('click', () => selectOption(option));
                 optionsDiv.appendChild(optionDiv);
+
             });
+
+
         }
 
         function selectOption(option) {
@@ -993,4 +996,33 @@ function showWinDialog(name, instagramId, timeTaken) {
         }
 
         setInterval(updateScoreBanner, 100);
+
+        // Get the quiz image element
+            const quizImage = document.getElementById('quizImage');
+
+            // Function to hide the quiz image
+            function hideQuizImage() {
+                quizImage.style.display = 'none';
+            }
+
+            // Event listener for the start quiz button
+            startQuizBtn.addEventListener('click', () => {
+                // Hide the quiz image when the button is clicked
+                hideQuizImage();
+
+                // Other logic for starting the quiz...
+            });
+
+            // Function to show the quiz image
+            function showQuizImage() {
+                quizImage.style.display = 'block'; // or 'inline' if it was originally an inline element
+            }
+            
+          // Event listener for the retake quiz button
+            retakeQuizBtn.addEventListener('click', () => {
+                // Show the quiz image when the button is clicked
+                showQuizImage();
+
+           // Other logic for retaking the quiz...
+            });
 
