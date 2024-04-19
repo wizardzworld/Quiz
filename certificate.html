@@ -101,59 +101,61 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
     function generateCertificate() {
-      var urlParams = new URLSearchParams(window.location.search);
+  var urlParams = new URLSearchParams(window.location.search);
              
-      const name = urlParams.get('name'); // Example name
-      const score = urlParams.get('percentage'); // Example score
-      
-      if (score >= 80) {
-        const certificateText = `
-          <div class="certificate-text">
-            <h3>Certificate of Achievement</h3>
-            <p>This certifies that <strong>${name}</strong> has successfully earned the title of "Certified Potterhead" through exemplary performance in the Wizardzworld Quiz Contest. This distinction acknowledges profound knowledge and passion for the magical universe of Harry Potter. Moreover, the individual has achieved a score of <strong>${score}%</strong>.</p>
-          </div>
-          <div class="certificate-bottom">
-            <p>By virtue of this certification, ${name} is hereby acknowledged as a beacon of Potterhead pride within the global community of Harry Potter enthusiasts. May they continue to uphold the spirit of magic and adventure that defines the essence of Wizardzworld and the wizarding world of Harry Potter.</p>
-          </div>
-          <div class="certificate-date">
-          <p>Awarded on ${new Date().toLocaleDateString()}</p>
-          </div>
-        `;
-        const certificate = document.getElementById('certificate');
-        const certificateImg = new Image();
-        certificateImg.onload = function() {
-          certificate.innerHTML = `<img src="${certificateImg.src}">${certificateText}`;
-          certificate.style.display = 'block';
-          document.getElementById('downloadBtn').style.display = 'block';
-        };
-        certificateImg.src = 'https://i.postimg.cc/zvbxsLnx/Certificate-48.jpg'; // Replace with your certificate image URL
-      } else {
-        alert('Score must be at least 80% to generate certificate.');
-      }
-    }
+  const name = urlParams.get('name'); // Example name
+  const score = parseInt(urlParams.get('percentage')); // Example score
+  
+  if (score >= 80) {
+    const certificateText = `
+      <div class="certificate-text">
+        <h3>Certificate of Achievement</h3>
+        <p>This certifies that <strong>${name}</strong> has successfully earned the title of "Certified Potterhead" through exemplary performance in the Wizardzworld Quiz. This distinction acknowledges profound knowledge and passion for the magical universe of Harry Potter. Moreover, the individual has achieved a score of <strong>${score}%</strong>.</p>
+      </div>
+      <div class="certificate-bottom">
+        <p>By virtue of this certification, ${name} is hereby acknowledged as a beacon of Potterhead pride within the global community of Harry Potter enthusiasts. May they continue to uphold the spirit of magic and adventure that defines the essence of Wizardzworld and the wizarding world of Harry Potter.</p>
+      </div>
+      <div class="certificate-date">
+        <p>Awarded on ${new Date().toLocaleDateString()}</p>
+      </div>
+    `;
+    const certificate = document.getElementById('certificate');
+    const certificateImg = new Image();
+    certificateImg.onload = function() {
+      certificateImg.classList.add('certificate-img'); // Add a class to style the image
+      certificate.innerHTML = `${certificateText}`;
+      certificate.appendChild(certificateImg); // Append the image after text
+      certificate.style.display = 'block';
+      document.getElementById('downloadBtn').style.display = 'block';
 
-    function downloadCertificate() {
+      // Start download only after the certificate image has loaded
+      downloadCertificate();
+    };
+    certificateImg.src = 'https://i.postimg.cc/zvbxsLnx/Certificate-48.jpg'; // Replace with your certificate image URL
+  } else {
+    alert('Score must be at least 80% to generate certificate.');
+  }
+}
+
+function downloadCertificate() {
   const certificate = document.getElementById('certificate');
   
-    // Convert certificate to image
-    domtoimage.toJpeg(certificate, { quality: 1.0 })
-      .then(function (dataUrl) {
-        // Create a link element
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = 'certificate.jpg';
-        // Trigger the click event
-        link.click();
-      })
-      .catch(function (error) {
-        console.error('Error generating certificate:', error);
-      });
-
-setTimeout(function() {
-
-    // Close the window after download starts
-    window.close();
-  }, 6000); // Delay of 1 second before downloading
+  // Convert certificate to image
+  domtoimage.toJpeg(certificate, { quality: 1.0 })
+    .then(function (dataUrl) {
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'certificate.jpg';
+      // Trigger the click event
+      link.click();
+      
+      // Close the window after download starts
+      window.close();
+    })
+    .catch(function (error) {
+      console.error('Error generating certificate:', error);
+    });
 }
 
 
